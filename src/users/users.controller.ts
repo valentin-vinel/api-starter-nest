@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { User } from 'types/User.type';
 
@@ -22,5 +22,11 @@ export class UsersController {
     @HttpCode(201)
     create(@Body() user: User): User {
         return this.usersService.create(user);
+    }
+
+    @Patch(':id')
+    @HttpCode(200)
+    update(@Param('id') id: string, @Body() user: User): User {
+        return this.usersService.update(id, user);
     }
 }
