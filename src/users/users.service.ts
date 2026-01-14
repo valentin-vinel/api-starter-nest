@@ -5,63 +5,63 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-    private users: User[] = [
-        {
-            id: 1,
-            name: "John Doe",
-            email: "john.doe@example.com",
-            role: "admin",
-        },
-        {
-            id: 2,
-            name: "Jim Doe",
-            email: "jim.doe@example.com",
-            role: "admin",
-        },
-        {
-            id: 3,
-            name: "Jill Doe",
-            email: "jill.doe@example.com",
-            role: "admin",
-        },
-        {
-            id: 4,
-            name: "Jack Doe",
-            email: "jack.doe@example.com",
-            role: "admin",
-        },
-    ];
+  private users: User[] = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      role: 'admin',
+    },
+    {
+      id: 2,
+      name: 'Jim Doe',
+      email: 'jim.doe@example.com',
+      role: 'admin',
+    },
+    {
+      id: 3,
+      name: 'Jill Doe',
+      email: 'jill.doe@example.com',
+      role: 'admin',
+    },
+    {
+      id: 4,
+      name: 'Jack Doe',
+      email: 'jack.doe@example.com',
+      role: 'admin',
+    },
+  ];
 
-    findAll(): User[] {
-        return this.users;
-    }
+  findAll(): User[] {
+    return this.users;
+  }
 
-    findOne(id: number): User {
-        return this.users.find((user) => user.id === id) as User;
-    }
+  findOne(id: number): User {
+    return this.users.find((user) => user.id === id) as User;
+  }
 
-    create(userCreate: CreateUserDto): User {
-        const newId = this.users.length + 1;
+  create(userCreate: CreateUserDto): User {
+    const newId = this.users.length + 1;
 
-        const newUser: User = {
-            ...userCreate,
-            id: newId,
-        };
+    const newUser: User = {
+      ...userCreate,
+      id: newId,
+    };
 
-        this.users.push(newUser);
-        return newUser;
-    }
+    this.users.push(newUser);
+    return newUser;
+  }
 
-    update(id: number, updateUser: UpdateUserDto): User {
-        const index = this.users.findIndex((user) => user.id === id);
-        this.users[index] = { ...updateUser, id};
+  update(id: number, updateUser: UpdateUserDto): User {
+    const index = this.users.findIndex((user) => user.id === id);
+    this.users[index] = { ...updateUser, id };
 
-        return this.users[index];
-    }
+    return this.users[index];
+  }
 
-    delete(id: number): string {
-        this.users = this.users.filter((user) => user.id !== id);
+  delete(id: number): string {
+    this.users = this.users.filter((user) => user.id !== id);
 
-        return "User deleted successfully";
-    }
+    return 'User deleted successfully';
+  }
 }
