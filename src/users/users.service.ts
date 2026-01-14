@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'types/User.type';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -37,7 +37,13 @@ export class UsersService {
   }
 
   findOne(id: number): User {
-    return this.users.find((user) => user.id === id) as User;
+    const user = this.users.find((user) => user.id === id);
+
+    if (!user) {
+        throw new NotFoundException('Utilisateur non trouvé');
+    }
+
+    return user;
   }
 
   create(userCreate: CreateUserDto): User {
@@ -56,11 +62,19 @@ export class UsersService {
     const index = this.users.findIndex((user) => user.id === id);
     this.users[index] = { ...updateUser, id };
 
+    if (index === -1) {
+        throw new NotFoundException('Utilisateur non trouvé');
+    }
+
     return this.users[index];
   }
 
   delete(id: number): string {
     this.users = this.users.filter((user) => user.id !== id);
+
+    if (this.users.length === this.users.length) {
+        throw new NotFoundException('Utilisateur non trouvé');
+    }
 
     return 'User deleted successfully';
   }
