@@ -52,9 +52,9 @@ export class UsersService {
         return newUser;
     }
 
-    update(id: number, userUpdate: UpdateUserDto): User {
+    update(id: number, updateUser: UpdateUserDto): User {
         const index = this.users.findIndex((user) => user.id === id);
-        this.users[index] = { ...userUpdate, id};
+        this.users[index] = { ...updateUser, id};
 
         return this.users[index];
     }
