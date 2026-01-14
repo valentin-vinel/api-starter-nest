@@ -5,25 +5,25 @@ import { User } from 'types/User.type';
 export class UsersService {
     private users: User[] = [
         {
-            id: "1",
+            id: 1,
             name: "John Doe",
             email: "john.doe@example.com",
             role: "admin",
         },
         {
-            id: "2",
+            id: 2,
             name: "Jim Doe",
             email: "jim.doe@example.com",
             role: "admin",
         },
         {
-            id: "3",
+            id: 3,
             name: "Jill Doe",
             email: "jill.doe@example.com",
             role: "admin",
         },
         {
-            id: "4",
+            id: 4,
             name: "Jack Doe",
             email: "jack.doe@example.com",
             role: "admin",
@@ -34,12 +34,12 @@ export class UsersService {
         return this.users;
     }
 
-    findOne(id: string): User {
+    findOne(id: number): User {
         return this.users.find((user) => user.id === id) as User;
     }
 
     create(user: User): User {
-        const newId = (this.users.length + 1).toString();
+        const newId = this.users.length + 1;
 
         const newUser: User = {
             ...user,
@@ -50,14 +50,14 @@ export class UsersService {
         return newUser;
     }
 
-    update(id: string, user: User): User {
+    update(id: number, user: User): User {
         const index = this.users.findIndex((user) => user.id === id);
         this.users[index] = user;
 
         return user;
     }
 
-    delete(id: string): string {
+    delete(id: number): string {
         this.users = this.users.filter((user) => user.id !== id);
 
         return "User deleted successfully";
