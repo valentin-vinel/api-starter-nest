@@ -1,34 +1,59 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, BadRequestException, Query, NotFoundException, ParseIntPipe } from '@nestjs/common';
 import { UserappService } from './userapp.service';
-import { CreateUserappDto } from './dto/create-userapp.dto';
-import { UpdateUserappDto } from './dto/update-userapp.dto';
+import { Prisma } from '@prisma/client';
+import { throwDeprecation } from 'process';
 
-@Controller('userapp')
+@Controller('usersapp')
 export class UserappController {
   constructor(private readonly userappService: UserappService) {}
 
   @Post()
-  create(@Body() createUserappDto: CreateUserappDto) {
-    return this.userappService.create(createUserappDto);
+  @HttpCode(201)
+  create(@Body() createUser: Prisma.UserCreateInput) {
+    const user = this.userappService.create(createUser);
+    if (!user) {
+      throw new BadRequestException('Failed to create user');
+    }
+    return user;
   }
 
   @Get()
-  findAll() {
-    return this.userappService.findAll();
+  @HttpCode(200)
+  findAll(@Query('role') role?: string) {
+    const users = this.userappService.findAll(role);
+    if (!users) {
+      throw new NotFoundException('No users found');
+    }
+    return users;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userappService.findOne(+id);
+  @HttpCode(200)
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    const user = this.userappService.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserappDto: UpdateUserappDto) {
-    return this.userappService.update(+id, updateUserappDto);
+  @HttpCode(200)
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatedUser: Prisma.UserUpdateInput) {
+    const user = this.userappService.update(id, updatedUser);
+    if (!user) {
+      throw new BadRequestException('Failed to update user');
+    }
+    return user;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userappService.remove(+id);
+  @HttpCode(200)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    const user = this.userappService.remove(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 }
