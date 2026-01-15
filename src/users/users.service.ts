@@ -40,7 +40,7 @@ export class UsersService {
     const user = this.users.find((user) => user.id === id);
 
     if (!user) {
-        throw new NotFoundException('Utilisateur non trouvé');
+      throw new NotFoundException('Utilisateur non trouvé');
     }
 
     return user;
@@ -63,7 +63,7 @@ export class UsersService {
     this.users[index] = { ...updateUser, id };
 
     if (index === -1) {
-        throw new NotFoundException('Utilisateur non trouvé');
+      throw new NotFoundException('Utilisateur non trouvé');
     }
 
     return this.users[index];
@@ -73,7 +73,7 @@ export class UsersService {
     this.users = this.users.filter((user) => user.id !== id);
 
     if (this.users.length === this.users.length) {
-        throw new NotFoundException('Utilisateur non trouvé');
+      throw new NotFoundException('Utilisateur non trouvé');
     }
 
     return 'User deleted successfully';

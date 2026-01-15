@@ -1,4 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, BadRequestException, Query, NotFoundException, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  BadRequestException,
+  Query,
+  NotFoundException,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { UserappService } from './userapp.service';
 import { Prisma } from '@prisma/client';
 import { throwDeprecation } from 'process';
@@ -39,7 +52,10 @@ export class UserappController {
 
   @Patch(':id')
   @HttpCode(200)
-  update(@Param('id', ParseIntPipe) id: number, @Body() updatedUser: Prisma.UserUpdateInput) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatedUser: Prisma.UserUpdateInput,
+  ) {
     const user = this.userappService.update(id, updatedUser);
     if (!user) {
       throw new BadRequestException('Failed to update user');

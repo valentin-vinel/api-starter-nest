@@ -17,8 +17,8 @@ export class UserappService {
       return this.databaseService.user.findMany({
         where: {
           role: role as Role,
-        }
-      })
+        },
+      });
     }
     return this.databaseService.user.findMany();
   }
@@ -38,7 +38,7 @@ export class UserappService {
 
   remove(id: number) {
     return this.databaseService.user.delete({
-      where: { id }
+      where: { id },
     });
   }
 }
