@@ -20,6 +20,7 @@ import { throwDeprecation } from 'process';
 export class UserappController {
   constructor(private readonly userappService: UserappService) {}
 
+
   @Post()
   @HttpCode(201)
   create(@Body() createUser: Prisma.UserCreateInput) {
