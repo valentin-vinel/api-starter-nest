@@ -31,7 +31,7 @@ import { ThrottlerBehindProxyGuard } from './common/guards/throttler-behind-prox
     ]),
     UsersModule,
     DatabaseModule,
-    UserappModule
+    UserappModule,
   ],
   controllers: [AppController, UsersController],
   providers: [

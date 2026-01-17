@@ -46,7 +46,7 @@ async function bootstrap() {
       xContentTypeOptions: false,
       xDownloadOptions: false,
       xFrameOptions: false,
-    })
+    }),
   );
   // app.useGlobalGuards(new AuthGuard());
   await app.listen(process.env.PORT ?? 3000);
